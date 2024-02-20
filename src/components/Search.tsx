@@ -7,7 +7,7 @@ import { setSearch } from '../store/articles/articlesSlice.ts';
 
 export const Search: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const search = useAppSelector(state => state.articles.search);
+	const search = useAppSelector((state) => state.articles.search);
 	const [inputValue, setInputValue] = useState('');
 
 	const loading = useAppSelector((state) => state.articles.loading);

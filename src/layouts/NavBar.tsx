@@ -38,14 +38,18 @@ export const NavBar: React.FC = () => {
 				<Toolbar sx={{ justifyContent: 'space-between' }}>
 					<Box sx={{ display: 'flex', gap: '20px' }}>
 						{navLinks.map(({ title, link, variant }) => (
-							<Button color="error" key={title} variant={variant} component={NavLink} to={link}>
+							<Button
+								color="error"
+								key={title}
+								variant={variant}
+								component={NavLink}
+								to={link}
+							>
 								{title}
 							</Button>
 						))}
 					</Box>
-					{pathname !== '/create-post' && (
-						<Search />
-					)}
+					{pathname !== '/create-post' && <Search />}
 				</Toolbar>
 			</AppBar>
 		</Box>

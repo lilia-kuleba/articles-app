@@ -77,6 +77,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-named-as-default': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/no-absolute-path': 'off',
     'no-param-reassign': [
       2,
       {

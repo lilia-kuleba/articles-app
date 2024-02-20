@@ -15,8 +15,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ConfirmActionModal } from './ConfirmActionModal.tsx';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { ArticleType } from '../types';
+import { deleteUserArticle, togglePinnedArticle } from '../store/articles/articlesSlice.ts';
+// eslint-disable-next-line import/no-unresolved
 import placeholderImg from '/placeholder.png';
-import { deleteUserArticle, togglePinnedArticle } from "../store/articles/articlesSlice.ts";
 
 export const ArticleItem: React.FC<{ post: ArticleType }> = ({ post }) => {
 	const { id, title, description, url, author, urlToImage, createdByUser } = post;
@@ -39,10 +40,8 @@ export const ArticleItem: React.FC<{ post: ArticleType }> = ({ post }) => {
 	const authorAvatar = useMemo(() => {
 		const [firstName, lastName] = (author || 'Author unknown').split(' ');
 
-		return firstName?.[0].toUpperCase() + (lastName || ' ')[0].toUpperCase();
+		return firstName[0].toUpperCase() + (lastName || ' ')[0].toUpperCase();
 	}, [author]);
-
-	console.log(pinnedPost?.id, id);
 
 	return (
 		<>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
@@ -12,8 +13,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { ConfirmActionModal } from './ConfirmActionModal.tsx';
 import { ArticleType } from '../types.ts';
-import { useAppDispatch } from "../store/hooks.ts";
-import { addArticle } from "../store/articles/articlesSlice.ts";
+import { useAppDispatch } from '../store/hooks.ts';
+import { addArticle } from '../store/articles/articlesSlice.ts';
 
 export const CreateArticle: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ export const CreateArticle: React.FC = () => {
 		const publishedAt = new Date().toISOString();
 
 		const newPost: ArticleType = {
-			id: `${author}${publishedAt}`,
+			id: uuidv4(),
 			title,
 			author,
 			description,

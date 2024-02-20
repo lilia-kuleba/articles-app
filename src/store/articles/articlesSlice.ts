@@ -6,7 +6,6 @@ export type PostState = {
 	articles: ArticleType[];
 	pinnedArticle: ArticleType | null;
 	loading: boolean;
-	shouldUpdate: boolean;
 	search: string;
 	totalResults: number;
 	page: number;
@@ -16,7 +15,6 @@ const initialState: PostState = {
 	articles: [],
 	pinnedArticle: null,
 	loading: true,
-	shouldUpdate: false,
 	totalResults: 0,
 	search: '',
 	page: 1
@@ -57,12 +55,14 @@ export const articlesSlice = createSlice({
 		builder.addCase(
 			getAllPosts.fulfilled,
 			(state, action: PayloadAction<{ totalResults: number; articles: ArticleType[] }>) => {
-				const ids = state.articles.map(({ id }) => id);
+				const urls = state.articles.map(({ url }) => url);
 
 				state.totalResults = action.payload.totalResults;
 				state.articles = [
 					...state.articles,
-					...action.payload.articles.filter(({ id }) => id !== state.pinnedArticle?.id && !ids.includes(id))
+					...action.payload.articles.filter(
+						({ id, url }) => id !== state.pinnedArticle?.id && !urls.includes(url)
+					)
 				];
 				state.loading = false;
 			}

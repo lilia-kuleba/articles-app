@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getPosts } from '../../services/http/posts.ts';
 import { ArticleType } from '../../types.ts';
@@ -17,7 +18,7 @@ export const getAllPosts = createAsyncThunk(
 			totalResults: response.data.totalResults,
 			articles: response.data.articles.map(
 				({ author, title, publishedAt, description, urlToImage, url }) => ({
-					id: `${author}${publishedAt}`,
+					id: uuidv4(),
 					author,
 					title,
 					publishedAt,

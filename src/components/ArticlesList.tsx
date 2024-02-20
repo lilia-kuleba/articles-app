@@ -7,11 +7,11 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { EmptyState } from './EmptyState';
 import { getAllPosts } from '../store/articles/thunks.ts';
 import { LoadMoreCard } from './LoadMoreCard.tsx';
-import { setPage } from "../store/articles/articlesSlice.ts";
+import { setPage } from '../store/articles/articlesSlice.ts';
 
 export const ArticlesList: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { articles, loading, shouldUpdate, search, pinnedArticle, page } = useAppSelector(
+	const { articles, loading, search, pinnedArticle, page } = useAppSelector(
 		(state) => state.articles
 	);
 	const articlesList = useMemo(
@@ -23,12 +23,14 @@ export const ArticlesList: React.FC = () => {
 		dispatch(getAllPosts({ search, page }));
 	};
 
-	useEffect(fetchPosts, [search, page, shouldUpdate]);
+	useEffect(fetchPosts, [search, page]);
 
 	useEffect(() => {
 		return () => {
-			dispatch(setPage(1));
-		}
+			if (page !== 1) {
+				dispatch(setPage(1));
+			}
+		};
 	}, []);
 
 	return (
@@ -37,7 +39,7 @@ export const ArticlesList: React.FC = () => {
 			{!!articlesList.length && (
 				<>
 					{articlesList.map((post) => (
-						<ArticleItem key={post.publishedAt} post={post} />
+						<ArticleItem key={post.id} post={post} />
 					))}
 					<LoadMoreCard />
 				</>
